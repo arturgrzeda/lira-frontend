@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+textarea {
+    height: 238px;
+    background: black url('./textarea.png');
+    box-shadow: none;
+    padding: 0;
+    border-width: 0;
+    line-height: 34px;
+}
+
+audio {
+  filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+}

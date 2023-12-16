@@ -1,9 +1,19 @@
-import { Inter } from 'next/font/google'
-import './globals.css'
+import { Playfair_Display, Lato } from 'next/font/google'
+import '@/Styles/globals.css'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from '@vercel/analytics/react';
+import '@/Styles/webflow.css'
+import '@/Styles/lira-contest-3bca65.webflow.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair-display'
+})
+const lato = Lato({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-lato'
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,10 +22,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-      <SpeedInsights />
-      <Analytics />
+    <html lang="pl">
+      <body className={`${lato.variable} ${lato.variable}`}>{children}</body>
+      {/* <SpeedInsights />
+      <Analytics /> */}
     </html>
   )
 }
