@@ -1,10 +1,8 @@
-import ApplicationComponent from '@/Components/ApplicationForm';
+import ApplicationComponentEN from '@/Components/ApplicationFormEN';
+import ApplicationComponentDE from '@/Components/ApplicationFormDE';
 import Logout from '@/Components/Auth/LogoutForm'
-// import { useParams } from 'next/navigation'
 
 export default function Home(data) {
-  // const params = useParams()
-  console.log(data)
   return (
     <>
       <div data-animation="default" className="navbar1_component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="bc4dd01f-e09f-5b80-9394-0438067007e6" role="banner" data-duration="400">
@@ -42,17 +40,28 @@ export default function Home(data) {
                   </a>
                 </div>
               </div>
-              <nav role="navigation" className="navbar1_menu is-page-height-tablet w-nav-menu">
-                <a href={`${process.env.contest_website_url}#do-uczestnikow`} className="navbar1_link w-nav-link">Dla uczestników</a>
-                <a href={`${process.env.contest_website_url}#o-nas`} className="navbar1_link w-nav-link">O nas</a>
-                <a href={`${process.env.contest_website_url}#aktualnosci`} className="navbar1_link w-nav-link">Aktualności</a>
-                <a href={`${process.env.contest_website_url}`} className="navbar1_link w-nav-link">Regulamin</a>
-                <a href="/" className="navbar1_link w-nav-link">Formularz zgłoszeniowy</a>
-                <a href={`${process.env.contest_website_url}#jury`} className="navbar1_link w-nav-link">Jury</a>
-                <a href={`${process.env.contest_website_url}#harmonogram`} className="navbar1_link w-nav-link">Harmonogram</a>
-                <a href={`${process.env.contest_website_url}#sponsorzy-i-partnerzy`} className="navbar1_link w-nav-link">Partnerzy i sponsorzy</a>
-                <Logout/>
-              </nav>
+              {data.params.lang === 'en' && <nav role="navigation" className="navbar1_menu is-page-height-tablet w-nav-menu">
+                  <a href={`${process.env.contest_website_url}/en/#do-uczestnikow`} className="navbar1_link w-nav-link">For participants</a>
+                  <a href={`${process.env.contest_website_url}/en/#o-nas`} className="navbar1_link w-nav-link">About us</a>
+                  <a href={`${process.env.contest_website_url}/en/#aktualnosci`} className="navbar1_link w-nav-link">News</a>
+                  <a href={`${process.env.contest_website_url}/en/`} className="navbar1_link w-nav-link">Regulations</a>
+                  <a href="/" className="navbar1_link w-nav-link">Application form</a>
+                  <a href={`${process.env.contest_website_url}/en/#jury`} className="navbar1_link w-nav-link">Jury</a>
+                  <a href={`${process.env.contest_website_url}/en/#harmonogram`} className="navbar1_link w-nav-link">Schedule</a>
+                  <a href={`${process.env.contest_website_url}/en/#sponsorzy-i-partnerzy`} className="navbar1_link w-nav-link">Partners and sponsors</a>
+                  <Logout/>
+                </nav>}
+              {data.params.lang === 'de' && <nav role="navigation" className="navbar1_menu is-page-height-tablet w-nav-menu">
+                  <a href={`${process.env.contest_website_url}/de/#do-uczestnikow`} className="navbar1_link w-nav-link">Für Teilnehmer</a>
+                  <a href={`${process.env.contest_website_url}/de/#o-nas`} className="navbar1_link w-nav-link">Über uns</a>
+                  <a href={`${process.env.contest_website_url}/de/#aktualnosci`} className="navbar1_link w-nav-link">Neuigkeiten</a>
+                  <a href={`${process.env.contest_website_url}/de/`} className="navbar1_link w-nav-link">Regeln</a>
+                  <a href="/" className="navbar1_link w-nav-link">Anmeldeformular</a>
+                  <a href={`${process.env.contest_website_url}/de/#jury`} className="navbar1_link w-nav-link">Jury</a>
+                  <a href={`${process.env.contest_website_url}/de/#harmonogram`} className="navbar1_link w-nav-link">Zeitplan</a>
+                  <a href={`${process.env.contest_website_url}/de/#sponsorzy-i-partnerzy`} className="navbar1_link w-nav-link">Partner und Sponsoren</a>
+                  <Logout/>
+                </nav>}
             </div>
             <div className="navbar1_menu-button w-nav-button">
               <div className="menu-icon1">
@@ -67,12 +76,15 @@ export default function Home(data) {
         </div>
       <div className="container max-w-4xl mx-auto font-mono text-white py-44">
           <div className="mb-2 font-sans text-4xl font-semibold text-center">
-            <h2>Formularz zgłoszeniowy</h2>
+            {data.params.lang === 'en' && <h2>Application form</h2>}
+            {data.params.lang === 'de' && <h2>Anmeldeformular</h2>}
           </div>
           <div className="mb-12 font-mono text-center">
-            <p>Przed wypełnieniem formularza zapoznaj się z regulaminem konkursu</p>
+            {data.params.lang === 'en' && <p>Before completing the form, please read the competition regulations</p>}
+            {data.params.lang === 'de' && <p>Bevor Sie das Formular ausfüllen, lesen Sie bitte die Wettbewerbsbestimmungen</p>}
           </div>
-          <ApplicationComponent/>
+          {data.params.lang === 'en' && <ApplicationComponentEN/>}
+          {data.params.lang === 'de' && <ApplicationComponentDE/>}
       </div>
     </>
   )
