@@ -20,7 +20,7 @@ async function getData() {
 export default async function ManagementPanel() {
   const data = await getData();
     return (
-      <>
+      <div className="container py-48 mx-auto">
         <div className="mb-12">
               <h2>Panel głosowania jurora</h2>
           </div>
@@ -29,6 +29,6 @@ export default async function ManagementPanel() {
               <CompetitionCard key={competition.id} data={competition}/>
             ))}
         </div>
-      </>
+      </div>
     )
   }

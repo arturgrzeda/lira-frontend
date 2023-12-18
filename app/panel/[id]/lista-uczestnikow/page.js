@@ -27,6 +27,7 @@ async function getJurorVotes() {
         });
         return response.data;
     } catch (error) {
+        console.log(error)
         throw new Error('Failed to fetch data');
     }
 }
@@ -51,7 +52,7 @@ export default async function ListaUczestnikow(props) {
     const votes = await getJurorVotes();
     const juror = await getJurorData();
     return (
-        <div>
+        <div className="container py-48 mx-auto">
             <div className="mb-12">
                 <h2>Uczestnicy konkursu ({participants.data.filter((participant) => participant.attributes.status === "verified").length})</h2>
             </div>

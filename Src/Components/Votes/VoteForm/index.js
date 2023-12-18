@@ -52,7 +52,7 @@ function VoteForm({ jurorId, competitionId, participantId, index, onVoteSubmit, 
       );
 
       // Handle the response as needed
-      console.log('Vote submitted successfully:', response.data);
+      // console.log('Vote submitted successfully:', response.data);
 
       // Pass vote information back to the parent component
       onVoteSubmit({

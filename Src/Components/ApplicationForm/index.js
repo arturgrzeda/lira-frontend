@@ -24,7 +24,7 @@ const ApplicationForm = () => {
     resolver: yupResolver(applicationFormSchema),
   });
 
-  console.log(errors);
+  // console.log(errors);
 
   const [loading, setLoading] = useState(false)
 
@@ -33,7 +33,6 @@ const ApplicationForm = () => {
     photo: null,
     confirmation_of_payment: null,
     recording: null,
-    // participant_declaration: null,
   });
 
   const [fileProgress, setFileProgress] = useState({
@@ -41,7 +40,6 @@ const ApplicationForm = () => {
     photo: 0,
     confirmation_of_payment: 0,
     recording: 0,
-    // participant_declaration: 0,
   });
 
   const onFileChange = (key, e) => {
@@ -61,7 +59,6 @@ const ApplicationForm = () => {
   const onSubmit = async (data) => {
     setLoading(true)
     try {
-      // Step 1: Upload files to Strapi
       const uploadPromises = Object.keys(selectedFiles).map(async (key) => {
         if (key !== 'attachment' && selectedFiles[key]) {
           const fileData = new FormData();
@@ -82,14 +79,12 @@ const ApplicationForm = () => {
       });
 
       const uploadedFileIds = await Promise.all(uploadPromises);
-
-      // Step 2: Prepare the form data
       const formData = {
+        competition: 2,
         name: data.data.name,
+        birthdate: data.data.birthdate,
         email: data.data.email,
         phone: data.data.phone,
-        competition: 2,
-        birthdate: data.data.birthdate,
         nationality: data.data.nationality,
         address: data.data.address,
         leading_teacher: data.data.leading_teacher,
@@ -99,18 +94,25 @@ const ApplicationForm = () => {
         photo: uploadedFileIds[1],
         confirmation_of_payment: uploadedFileIds[2],
         recording: uploadedFileIds[3],
-        // participant_declaration: uploadedFileIds[4],
-        repertoire: data.data.repertoire.map((song) => ({
-          song_1: song.song_1,
-          song_2: song.song_2,
-          song_3: song.song_3,
-        })),
+        accommodation: data.data.accommodation,
+        accept_rules_and_consent: data.data.accept_rules_and_consent,
+        repertoire_2: data.data.repertoire.map((song, index) => {
+          if (index === 1 || index === 2) {
+            return {
+              __component: 'repertoire.repertoire-single',
+              song_1: song.song_1,
+            };
+          } else {
+            return {
+              __component: 'repertoire.repertoire',
+              song_1: song.song_1,
+              song_2: song.song_2,
+              song_3: song.song_3,
+            };
+          }
+        }),
       };
-      // Step 3: Send the form data to the Strapi endpoint for participants as JSON
-      console.log(formData)
       const formSubmitResponse = await axios.post(`${process.env.api_endpoint}/participants`, { data: formData });
-
-      console.log('Form submitted successfully:', formSubmitResponse.data);
       setLoading(false)
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -174,7 +176,7 @@ const ApplicationForm = () => {
         <p className="my-4"><strong>Opowiedz nam o swojej  ścieżce kariery.</strong></p>
         <div className="grid grid-cols-1 gap-6">
           <label className="block">
-            <div>Artystyczne CV</div>
+            <div>*Artystyczne CV</div>
             <textarea {...register('data.artistic_cv')} className="w-full outline-none" />
             {errors && errors.data?.artistic_cv && <p className="mt-2 text-red-500">{errors.data.artistic_cv.message}</p>}
           </label>
@@ -182,33 +184,45 @@ const ApplicationForm = () => {
       </div>
       {/* Repertoire */}
       <label className="flex flex-col gap-8">
-        Repertuar:
+        *Repertuar:
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="w-full p-4 mt-2 bg-transparent border border-white">
-            <strong>{getEliminacjeLabel(index)}</strong>
-            <label className="block mt-2">
-              Utwór 1 - Kompozytor, nazwa utworu oraz czas trwania:
-              <input type="text" {...register(`data.repertoire[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-              {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_1 && (
-                <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_1.message}</p>
-              )}
-            </label>
+            <strong>*{getEliminacjeLabel(index)}</strong>
+            {index === 1 || index === 2 ? ( // Check if it's index 1 or 2
+              <label className="block mt-2">
+                *Utwór - Kompozytor, nazwa utworu oraz czas trwania:
+                <input type="text" {...register(`data.repertoire[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_1 && (
+                  <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_1.message}</p>
+                )}
+              </label>
+            ) : (
+              <>
+                <label className="block mt-2">
+                  *Utwór 1 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input type="text" {...register(`data.repertoire[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_1 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_1.message}</p>
+                  )}
+                </label>
 
-            <label className="block mt-2">
-              Utwór 2 - Kompozytor, nazwa utworu oraz czas trwania:
-              <input type="text" {...register(`data.repertoire[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-              {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_2 && (
-                <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_2.message}</p>
-              )}
-            </label>
+                <label className="block mt-2">
+                  *Utwór 2 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input type="text" {...register(`data.repertoire[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_2 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_2.message}</p>
+                  )}
+                </label>
 
-            <label className="block mt-2">
-              Utwór 3 - Kompozytor, nazwa utworu oraz czas trwania:
-              <input type="text" {...register(`data.repertoire[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-              {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_3 && (
-                <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_3.message}</p>
-              )}
-            </label>
+                <label className="block mt-2">
+                  *Utwór 3 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input type="text" {...register(`data.repertoire[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_3 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_3.message}</p>
+                  )}
+                </label>
+              </>
+            )}
           </div>
         ))}
         {errors && errors.data?.repertoire && <p className="mt-2 text-red-500">{errors.data.repertoire.message}</p>}
@@ -223,36 +237,44 @@ const ApplicationForm = () => {
           </label>
           <label className="block">
             <div>*Twoje nagranie <br/> <small>(W formacie mp4)</small></div>
-            <input type="file" {...register('data.recording')} onChange={(e) => onFileChange('recording', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
+            <input type="file" accept="audio/*,video/*" {...register('data.recording')} onChange={(e) => onFileChange('recording', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
             {errors && errors.data?.recording && <p className="mt-2 text-red-500">{errors.data.recording.message}</p>}
           </label>
         </div>
       </div>
       <div>
-        <p className="my-4">Dodatkowe załączniki:</p>
         <div className="grid grid-cols-2 gap-6">
           <label className="block">
-            <div>Rekomendacje <br/><small>(Rekomendacje od koncertującego pianisty lub pedagoga.)</small></div>
-            <input type="file" onChange={(e) => onFileChange('recommendation', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
+            <div>*Rekomendacje <br/><small>(Rekomendacje od koncertującego pianisty lub pedagoga.)</small></div>
+            <input type="file" {...register('data.recommendation')} onChange={(e) => onFileChange('recommendation', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
+            {errors && errors.data?.recommendation && <p className="mt-2 text-red-500">{errors.data.recommendation.message}</p>}
           </label>
           <label className="block">
-            <div>Zdjęcie <br/><small>(Do wykorzystania w materiałach informacyjnych konkursu.)</small></div>
-            <input type="file" onChange={(e) => onFileChange('photo', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
+            <div>*Zdjęcie <br/><small>(Do wykorzystania w materiałach informacyjnych konkursu.)</small></div>
+            <input type="file" {...register('data.photo')} onChange={(e) => onFileChange('photo', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
+            {errors && errors.data?.photo && <p className="mt-2 text-red-500">{errors.data.photo.message}</p>}
           </label>
         </div>
       </div>
-      {/* <label className="block">
-        Participant Declaration:
-        <input type="file" onChange={(e) => onFileChange('participant_declaration', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
-        {fileProgress.participant_declaration > 0 && (
-          <progress value={fileProgress.participant_declaration} max="100" />
-        )}
-      </label> */}
+      {/* Checkboxes */}
+      <div className="grid grid-cols-1 gap-6">
+        <label className="block">
+          <input type="checkbox" {...register('data.accommodation')} className="mr-2" />
+          Potrzebuję zakwaterowania
+          {errors && errors.data?.accommodation && <p className="mt-2 text-red-500">{errors.data.accommodation.message}</p>}
+        </label>
+
+        <label className="block">
+          <input type="checkbox" {...register('data.accept_rules_and_consent')} className="mr-2" />
+          Akceptuję regulamin i wyrażam zgodę
+          {errors && errors.data?.accept_rules_and_consent && <p className="mt-2 text-red-500">{errors.data.accept_rules_and_consent.message}</p>}
+        </label>
+      </div>
       <button type="submit" className="flex flex-row items-center justify-center gap-4 px-6 py-4 mt-6 text-black bg-white border border-white border-solid">
         {!loading && <div>Wyślij zgłoszenie</div>}
-        {loading &&<><div>Proszę czekać trwa przesyłanie formularza</div><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-[#BF0C10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        {loading &&<><div>Proszę czekać trwa przesyłanie formularza</div><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#BF0C10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg></>}
       </button>
     </form>

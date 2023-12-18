@@ -22,7 +22,7 @@ function ParticipantsCard({data, index, voted, competitionId, jurorId}) {
   const [hasVoted, setHasVoted] = useState(!!voted);
   const [votedScore, setVotedScore] = useState(voted?.attributes.score || 0);
   const handleVoteSubmit = async (score) => {
-    console.log('score', score)
+    // console.log('score', score)
     try {
       setHasVoted(true);
       setVotedScore(score.score);
@@ -75,14 +75,14 @@ function ParticipantsCard({data, index, voted, competitionId, jurorId}) {
                       </tr>
                   </thead>
                   <tbody className="text-xs">
-                      {data.attributes.repertoire.map(({ id, ...rest }) => rest).map((rep, index) => (
+                      {/* {data.attributes.repertoire.map(({ id, ...rest }) => rest).map((rep, index) => (
                           <tr key={index}>
                               <td className="p-4">{getEliminacjeLabel(index)}</td>
                               {Object.keys(rep).map((key) => (
                                   <td className="p-4" key={key}>{rep[key]}</td>
                               ))}
                           </tr>
-                      ))}
+                      ))} */}
                   </tbody>
               </table>
           </div>
