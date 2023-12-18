@@ -264,13 +264,13 @@ const ApplicationForm = () => {
       <div className="grid grid-cols-1 gap-6">
         <label className="block">
           <input type="checkbox" {...register('data.accommodation')} className="mr-2" />
-          I need accommodation
+          I will*/I will not* use the accommodation provided by the organizer
           {errors && errors.data?.accommodation && <p className="mt-2 text-red-500">{errors.data.accommodation.message}</p>}
         </label>
 
         <label className="block">
           <input type="checkbox" {...register('data.accept_rules_and_consent')} className="mr-2" />
-          I accept the regulations and consent
+          BY SENDING THE APPLICATION, I FULLY ACCEPT THE REGULATIONS AND CONSENT TO THE PROCESSING OF MY PERSONAL DATA AND THE USE OF MY IMAGE FOR THE PURPOSES OF ORGANIZING AND PROMOTING THE COMPETITION
           {errors && errors.data?.accept_rules_and_consent && <p className="mt-2 text-red-500">{errors.data.accept_rules_and_consent.message}</p>}
         </label>
       </div>
