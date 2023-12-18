@@ -28,7 +28,7 @@ async function getJurorVotes() {
         });
         return response.data;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         throw new Error('Failed to fetch data');
     }
 }

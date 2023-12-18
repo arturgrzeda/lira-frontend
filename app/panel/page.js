@@ -18,8 +18,10 @@ async function getData() {
   }
 }
 
+
 export default async function ManagementPanel() {
   const data = await getData();
+
     return (
       <>
         <div data-animation="default" className="navbar1_component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="bc4dd01f-e09f-5b80-9394-0438067007e6" role="banner" data-duration="400">

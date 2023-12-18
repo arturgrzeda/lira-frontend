@@ -27,7 +27,7 @@ const ApplicationForm = () => {
     resolver: yupResolver(applicationFormSchema),
   });
 
-  console.log(errors);
+  // console.log(errors);
 
   const [loading, setLoading] = useState(false)
 
@@ -115,7 +115,7 @@ const ApplicationForm = () => {
           }
         }),
       };
-      console.log(formData)
+      // console.log(formData)
       const formSubmitResponse = await axios.post(`${process.env.api_endpoint}/participants`, { data: formData });
       setLoading(false)
       router.push('/podziekowania')
