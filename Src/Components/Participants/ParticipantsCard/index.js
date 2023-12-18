@@ -66,24 +66,26 @@ function ParticipantsCard({data, index, voted, competitionId, jurorId}) {
                 </div>
               </div>
               <table border="1" className="table-fixed">
-                  <thead className="text-xs">
-                      <tr className="p-4">
-                      <th className="p-4 text-left">REPERTUAR</th>
-                      <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
-                      <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
-                      <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
-                      </tr>
-                  </thead>
-                  <tbody className="text-xs">
-                      {/* {data.attributes.repertoire.map(({ id, ...rest }) => rest).map((rep, index) => (
-                          <tr key={index}>
-                              <td className="p-4">{getEliminacjeLabel(index)}</td>
-                              {Object.keys(rep).map((key) => (
-                                  <td className="p-4" key={key}>{rep[key]}</td>
-                              ))}
-                          </tr>
-                      ))} */}
-                  </tbody>
+                <thead className="text-xs">
+                  <tr className="p-4">
+                    <th className="p-4 text-left">REPERTUAR</th>
+                    <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
+                    <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
+                    <th className="p-4 text-left">Kompozytor, nazwa utworu oraz czas trwania</th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs">
+                {data.attributes.repertoire_2.map(({ id, __component, ...rest }, index) => (
+                  <tr key={id}>
+                    <td className="p-4">{getEliminacjeLabel(index)}</td>
+                    {[...Array(index === 1 || index === 2 ? 1 : 3)].map((_, columnIndex) => (
+                      <td className="p-4" colSpan={index === 1 || index === 2 ? 3 : 1} key={columnIndex}>
+                        {__component === 'repertoire.repertoire-single' && columnIndex > 0 ? null : rest[`song_${columnIndex + 1}`]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                </tbody>
               </table>
           </div>
 

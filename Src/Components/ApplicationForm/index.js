@@ -27,7 +27,7 @@ const ApplicationForm = () => {
     resolver: yupResolver(applicationFormSchema),
   });
 
-  // console.log(errors);
+  console.log(errors);
 
   const [loading, setLoading] = useState(false)
 
@@ -99,7 +99,7 @@ const ApplicationForm = () => {
         recording: uploadedFileIds[3],
         accommodation: data.data.accommodation,
         accept_rules_and_consent: data.data.accept_rules_and_consent,
-        repertoire_2: data.data.repertoire.map((song, index) => {
+        repertoire_2: data.data.repertoire_2.map((song, index) => {
           if (index === 1 || index === 2) {
             return {
               __component: 'repertoire.repertoire-single',
@@ -115,6 +115,7 @@ const ApplicationForm = () => {
           }
         }),
       };
+      console.log(formData)
       const formSubmitResponse = await axios.post(`${process.env.api_endpoint}/participants`, { data: formData });
       setLoading(false)
       router.push('/podziekowania')
@@ -192,37 +193,55 @@ const ApplicationForm = () => {
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="w-full p-4 mt-2 bg-transparent border border-white">
             <strong>*{getEliminacjeLabel(index)}</strong>
-            {index === 1 || index === 2 ? ( // Check if it's index 1 or 2
-              <label className="block mt-2">
-                *Utwór - Kompozytor, nazwa utworu oraz czas trwania:
-                <input type="text" {...register(`data.repertoire[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-                {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_1 && (
-                  <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_1.message}</p>
-                )}
-              </label>
+            {index === 1 || index === 2 ? (
+              <>
+                <label className="block mt-2">
+                  *Utwór 1 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input type="text" {...register(`data.repertoire_2[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_1 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_1.message}</p>
+                  )}
+                </label>
+
+                <label className="hidden mt-2">
+                  *Utwór 2 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input defaultValue="-" type="text" {...register(`data.repertoire_2[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_2 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_2.message}</p>
+                  )}
+                </label>
+
+                <label className="hidden mt-2">
+                  *Utwór 3 - Kompozytor, nazwa utworu oraz czas trwania:
+                  <input defaultValue="-" type="text" {...register(`data.repertoire_2[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_3 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_3.message}</p>
+                  )}
+                </label>
+              </>
             ) : (
               <>
                 <label className="block mt-2">
                   *Utwór 1 - Kompozytor, nazwa utworu oraz czas trwania:
-                  <input type="text" {...register(`data.repertoire[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_1 && (
-                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_1.message}</p>
+                  <input type="text" {...register(`data.repertoire_2[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_1 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_1.message}</p>
                   )}
                 </label>
 
                 <label className="block mt-2">
                   *Utwór 2 - Kompozytor, nazwa utworu oraz czas trwania:
-                  <input type="text" {...register(`data.repertoire[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_2 && (
-                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_2.message}</p>
+                  <input type="text" {...register(`data.repertoire_2[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_2 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_2.message}</p>
                   )}
                 </label>
 
                 <label className="block mt-2">
                   *Utwór 3 - Kompozytor, nazwa utworu oraz czas trwania:
-                  <input type="text" {...register(`data.repertoire[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
-                  {errors && errors.data?.repertoire && errors.data.repertoire[index]?.song_3 && (
-                    <p className="mt-2 text-red-500">{errors.data.repertoire[index].song_3.message}</p>
+                  <input type="text" {...register(`data.repertoire_2[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
+                  {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_3 && (
+                    <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_3.message}</p>
                   )}
                 </label>
               </>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import ParticipantsCard from '@/Components/Participants/ParticipantsCard';
+import ParticipantsList from '@/Components/Participants/ParticipantsList';
 import { cookies } from "next/headers";
 import Logout from '@/Components/Auth/LogoutForm'
 
@@ -108,21 +108,7 @@ export default async function ListaUczestnikow(props) {
                     <div className="mb-12">
                         <h2>Uczestnicy konkursu ({participants.data.filter((participant) => participant.attributes.status === "verified").length})</h2>
                     </div>
-                    <div className="grid grid-cols-3 gap-12">
-                        {participants.data.filter((participant) => participant.attributes.status === "verified").map((participant, index) => {
-                            const voted = votes.data.find((vote) => vote.attributes.participant.data.id === participant.id);
-                            return (
-                                <ParticipantsCard
-                                key={participant.id}
-                                data={participant}
-                                index={index + 1}
-                                voted={voted}
-                                competitionId={params.id}
-                                jurorId={juror.id}
-                                />
-                                );
-                            })}
-                    </div>
+                    <ParticipantsList participants={participants} params={params} votes={votes} juror={juror}  />
                 </div>
         </>
       )
