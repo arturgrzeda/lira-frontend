@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { applicationFormSchema } from '@/Utils/Validators'
 import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 function getEliminacjeLabel(index) {
   switch (index) {
@@ -20,6 +21,8 @@ function getEliminacjeLabel(index) {
   }
 }
 const ApplicationForm = () => {
+  const router = useRouter()
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(applicationFormSchema),
   });
@@ -114,6 +117,7 @@ const ApplicationForm = () => {
       };
       const formSubmitResponse = await axios.post(`${process.env.api_endpoint}/participants`, { data: formData });
       setLoading(false)
+      router.push('/podziekowania')
     } catch (error) {
       console.error('Error submitting form:', error);
       setLoading(false)
