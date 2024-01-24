@@ -254,7 +254,7 @@ const ApplicationForm = () => {
         <p className="my-4"><strong>Wymagane załączniki</strong></p>
         <div className="grid grid-cols-2 gap-6">
           <label className="block">
-            <div>*Potwierdzenie przelewu <br/><small>(w wysokości 1.100 PLN / 250 EURO)</small></div>
+            <div>*Potwierdzenie przelewu <br/><small>(w wysokości 550 PLN / 125 EURO)</small></div>
             <input type="file" {...register('data.confirmation_of_payment')} onChange={(e) => onFileChange('confirmation_of_payment', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
             {errors && errors.data?.confirmation_of_payment && <p className="mt-2 text-red-500">{errors.data.confirmation_of_payment.message}</p>}
           </label>
