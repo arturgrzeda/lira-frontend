@@ -87,7 +87,7 @@ export default function Home(data) {
                     <div className="margin-bottom margin-medium">
                       <div className="footer3_details-wrapper">
                         <div className="margin-bottom margin-small">
-                          <div className="text-size-small">Fundacja Rozwoju Kultury<br />im. Konstantego Ryszarda Domagały "Lira"<br /><br />Adres<br />ul. Jana Pawła II 23, 05-300 Mińsk Mazowiecki</div>
+                          <div className="text-size-small">Fundacja Rozwoju Kultury<br />im. Konstantego Ryszarda Domagały Lira<br /><br />Adres<br />ul. Jana Pawła II 23, 05-300 Mińsk Mazowiecki</div>
                         </div>
                         <div className="margin-bottom margin-tiny">
                           <div className="text-size-small text-weight-semibold">Kontakt</div>
