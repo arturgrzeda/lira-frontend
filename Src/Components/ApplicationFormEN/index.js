@@ -258,7 +258,7 @@ const ApplicationForm = () => {
             {errors && errors.data?.confirmation_of_payment && <p className="mt-2 text-red-500">{errors.data.confirmation_of_payment.message}</p>}
           </label>
           <label className="block">
-            <div>*Your recording <br/> <small>(In mp4 format)</small></div>
+            <div>*Your recording <br/> <small>(In mp4 format, maximum file size is 500MB)</small></div>
             <input type="file" accept="audio/*,video/*" {...register('data.recording')} onChange={(e) => onFileChange('recording', e)} className="w-full p-4 mt-2 bg-transparent border border-white" />
             {errors && errors.data?.recording && <p className="mt-2 text-red-500">{errors.data.recording.message}</p>}
           </label>
@@ -292,6 +292,7 @@ const ApplicationForm = () => {
           {errors && errors.data?.accept_rules_and_consent && <p className="mt-2 text-red-500">{errors.data.accept_rules_and_consent.message}</p>}
         </label>
       </div>
+      <p>If you have problems submitting the form via the website, please send all the information from the form along with the recordings to the following email address <a href="mailto:konkursgwim@gmail.com">konkursgwim@gmail.com</a></p>
       <button type="submit" className="flex flex-row items-center justify-center gap-4 px-6 py-4 mt-6 text-black bg-white border border-white border-solid">
         {!loading && <div>Submit a report</div>}
         {loading &&<><div>Please wait while the form is being submitted</div><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#BF0C10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
