@@ -195,7 +195,7 @@ const ApplicationForm = () => {
             {index === 1 || index === 2 ? (
               <>
                 <label className="block mt-2">
-                  *Track 2 - Composer, track name and duration:
+                *Track 1 - Komponist, Trackname und Dauer:
                   <input type="text" {...register(`data.repertoire_2[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_1 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_1.message}</p>
@@ -203,7 +203,7 @@ const ApplicationForm = () => {
                 </label>
 
                 <label className="hidden mt-2">
-                  *Track 2 - Composer, track name and duration:
+                *Track 2 - Komponist, Trackname und Dauer:
                   <input defaultValue="-" type="text" {...register(`data.repertoire_2[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_2 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_2.message}</p>
@@ -211,7 +211,7 @@ const ApplicationForm = () => {
                 </label>
 
                 <label className="hidden mt-2">
-                  *Track 3 - Composer, track name and duration:
+                *Track 3 - Komponist, Trackname und Dauer:
                   <input defaultValue="-" type="text" {...register(`data.repertoire_2[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_3 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_3.message}</p>
@@ -221,7 +221,7 @@ const ApplicationForm = () => {
             ) : (
               <>
                 <label className="block mt-2">
-                  *Track 2 - Composer, track name and duration:
+                *Track 1 - Komponist, Trackname und Dauer:
                   <input type="text" {...register(`data.repertoire_2[${index}].song_1`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_1 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_1.message}</p>
@@ -229,7 +229,7 @@ const ApplicationForm = () => {
                 </label>
 
                 <label className="block mt-2">
-                  *Track 2 - Composer, track name and duration:
+                *Track 2 - Komponist, Trackname und Dauer:
                   <input type="text" {...register(`data.repertoire_2[${index}].song_2`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_2 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_2.message}</p>
@@ -237,7 +237,7 @@ const ApplicationForm = () => {
                 </label>
 
                 <label className="block mt-2">
-                  *Track 3 - Composer, track name and duration:
+                *Track 3 - Komponist, Trackname und Dauer:
                   <input type="text" {...register(`data.repertoire_2[${index}].song_3`)} className="w-full p-4 mt-2 bg-transparent border border-gray-500" />
                   {errors && errors.data?.repertoire_2 && errors.data.repertoire_2[index]?.song_3 && (
                     <p className="mt-2 text-red-500">{errors.data.repertoire_2[index].song_3.message}</p>
